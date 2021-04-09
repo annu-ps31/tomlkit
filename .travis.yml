@@ -3,6 +3,7 @@ language: python
   
 stages:
   - linting
+  - linting_arm64
   - test
 
 cache:
@@ -46,7 +47,7 @@ jobs:
       script:
         - pre-commit run --all-files
         - uname -m
-    - stage: linting
+    - stage: linting_arm64
       python: "3.7"
       arch: arm64
       install:
