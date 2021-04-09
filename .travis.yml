@@ -1,6 +1,6 @@
 dist: bionic
 language: python
-  
+
 stages:
   - linting
   - test
@@ -37,7 +37,7 @@ jobs:
     - python: "3.8"
       arch: arm64
     - python: "pypy3"
-    
+
     - stage: linting
       python: "3.7"
       install:
@@ -46,7 +46,7 @@ jobs:
       script:
         - pre-commit run --all-files
         - uname -m
-        
+
     - stage: linting
       python: "3.7"
       arch: arm64
