@@ -1,61 +1,61 @@
 dist: bionic
 language: python
-  
+
 stages:
-  - linting
-  - test
+- linting
+- test
 
 cache:
-  pip: true
-  directories:
-    - $HOME/.cache/pypoetry
-    - $HOME/.cache/pre-commit
+pip: true
+directories:
+- $HOME/.cache/pypoetry
+- $HOME/.cache/pre-commit
 
 install:
-  - curl -fsS -o get-poetry.py https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py
-  - python get-poetry.py --preview -y
-  - source $HOME/.poetry/env
-  - poetry install -v
-  - uname -m
+- curl -fsS -o get-poetry.py https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py
+- python get-poetry.py --preview -y
+- source $HOME/.poetry/env
+- poetry install -v
+- uname -m
 
 script:
-  - pytest --cov-report xml --cov-report term-missing --cov-append --cov tomlkit tests/
+- pytest --cov-report xml --cov-report term-missing --cov-append --cov tomlkit tests/
 
 after_success:
-  - codecov
+- codecov
 
 jobs:
-  include:
-    - python: "2.7"
-    - python: "3.5"
-    - python: "3.6"
-    - python: "3.6"
-      arch: arm64
-    - python: "3.7"
-    - python: "3.7"
-      arch: arm64
-    - python: "3.8"
-      arch: arm64
-    - python: "pypy3"
-    
-    - stage: linting
-      python: "3.7"
-      install:
-        - pip install pre-commit
-        - pre-commit install-hooks
-      script:
-        - pre-commit run --all-files
-        - uname -m
-        
-    - stage: linting
-      python: "3.7"
-      arch: arm64
-      install:
-        - pip install pre-commit
-        - pre-commit install-hooks
-      script:
-        - pre-commit run --all-files
-        - uname -m
+include:
+- python: "2.7"
+- python: "3.5"
+- python: "3.6"
+- python: "3.6"
+arch: arm64
+- python: "3.7"
+- python: "3.7"
+arch: arm64
+- python: "3.8"
+arch: arm64
+- python: "pypy3"
 
-  allow_failures:
-    - python: pypy3
+- stage: linting
+python: "3.7"
+install:
+- pip install pre-commit
+- pre-commit install-hooks
+script:
+- pre-commit run --all-files
+- uname -m
+
+- stage: linting
+python: "3.7"
+arch: arm64
+install:
+- pip install pre-commit
+- pre-commit install-hooks
+script:
+- pre-commit run --all-files
+- uname -m
+
+allow_failures:
+- python: pypy3
