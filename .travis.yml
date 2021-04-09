@@ -1,6 +1,10 @@
 dist: bionic
 language: python
 
+arch:
+  - amd64
+  - arm64
+  
 stages:
   - linting
   - test
@@ -26,17 +30,17 @@ after_success:
 
 jobs:
   include:
-    - python: "2.7"
+    #- python: "2.7"
     - python: "3.5"
     - python: "3.6"
     - python: "3.6"
-      arch: arm64
+      #arch: arm64
     - python: "3.7"
     - python: "3.7"
-      arch: arm64
+      #arch: arm64
     - python: "3.8"
-      arch: arm64
-    - python: "pypy3"
+      #arch: arm64
+    #- python: "pypy3"
     
     - stage: linting
       python: "3.7"
@@ -45,16 +49,8 @@ jobs:
         - pre-commit install-hooks
       script:
         - pre-commit run --all-files
-        - uname -m
-    - stage: linting
-      python: "3.7"
-      arch: arm64
-      install:
-        - pip install pre-commit
-        - pre-commit install-hooks
-      script:
-        - pre-commit run --all-files
-        - uname -m
 
   allow_failures:
     - python: pypy3
+    
+    
