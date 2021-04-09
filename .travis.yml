@@ -16,6 +16,7 @@ install:
   - python get-poetry.py --preview -y
   - source $HOME/.poetry/env
   - poetry install -v
+  - uname -m
 
 script:
   - pytest --cov-report xml --cov-report term-missing --cov-append --cov tomlkit tests/
@@ -28,17 +29,26 @@ jobs:
     - python: "2.7"
     - python: "3.5"
     - python: "3.6"
+    - python: "3.6"
+      arch: arm64
     - python: "3.7"
+    - python: "3.7"
+      arch: arm64
     - python: "3.8"
+      arch: arm64
     - python: "pypy3"
 
     - stage: linting
       python: "3.7"
+      arch:
+        - amd64
+        - arm64
       install:
         - pip install pre-commit
         - pre-commit install-hooks
       script:
         - pre-commit run --all-files
+        - uname -m
 
   allow_failures:
     - python: pypy3
